@@ -36,7 +36,7 @@ export default function Header() {
 							style={{ fontWeight: 1000 }}
 							className={`text-4xl text-[#e01926] shadow-black drop-shadow-lg sm:text-6xl ${baumans.className}`}
 						>
-							Platodis
+							Platodis Test
 						</h1>
 						<p className="mb-1 ml-1 text-xs font-[1000] sm:text-base">
 							EMBREAGENS
