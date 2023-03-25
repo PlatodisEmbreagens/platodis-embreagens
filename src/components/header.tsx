@@ -95,7 +95,9 @@ export default function Header() {
 								strokeWidth={1.5}
 								stroke="currentColor"
 								className={`${
-									dropDown === 'openTwo' ? 'scale-105 text-sky-700' : ''
+									dropDown === 'openTwo'
+										? 'max-sm:scale-105 max-sm:text-sky-700'
+										: ''
 								} h-6 w-6 transition-all`}
 							>
 								<path
@@ -185,7 +187,9 @@ export default function Header() {
 								stroke="currentColor"
 								fill="none"
 								className={`${
-									dropDown === 'openThree' ? 'scale-105 text-sky-700' : ''
+									dropDown === 'openThree'
+										? 'max-sm:scale-105 max-sm:text-sky-700'
+										: ''
 								} h-6 w-6 transition-all`}
 							>
 								<path
