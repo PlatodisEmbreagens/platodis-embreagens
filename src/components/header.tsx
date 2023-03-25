@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { Baumans } from 'next/font/google';
 import useHeaderPostion from '@/hooks/useHeaderPosition';
+import React from 'react';
+import useDetectClickOutside from '@/hooks/useDetectClickOutside';
 
 const baumans = Baumans({
 	weight: '400',
@@ -9,6 +11,12 @@ const baumans = Baumans({
 });
 
 export default function Header() {
+	const [dropDown, setDropDown] = React.useState<string | boolean>(false);
+
+	const wrapperRef = React.useRef(null);
+
+	useDetectClickOutside(wrapperRef, setDropDown);
+
 	const scrollingDown = useHeaderPostion();
 
 	return (
@@ -49,7 +57,10 @@ export default function Header() {
 					<div className="h-1.5 w-full bg-[#e01926] sm:h-2.5"></div>
 					<div className="h-5 w-full bg-gradient-to-b from-[#f5ec02] to-[#f5ed020a] sm:h-[45px]"></div>
 				</div>
-				<div className="fixed top-0 right-0 flex w-screen items-center justify-end gap-8 border-b border-gray-300 bg-slate-100  py-2 pr-4 sm:pr-20">
+				<div
+					ref={wrapperRef}
+					className="fixed top-0 right-0 flex w-screen items-center justify-end gap-8 border-b border-gray-300 bg-slate-100  py-2 pr-4 sm:pr-20"
+				>
 					<div className="group relative flex cursor-pointer items-center gap-2">
 						<div>
 							<svg
@@ -70,21 +81,37 @@ export default function Header() {
 						<p className="hidden sm:block">Receber Ofertas</p>
 					</div>
 					<div className="group relative flex cursor-pointer items-center gap-2">
-						<svg
-							className="h-6 w-6"
-							fill="none"
-							viewBox="0 0 24 24"
-							strokeWidth={1.5}
-							stroke="currentColor"
+						<button
+							onClick={() =>
+								setDropDown(() => {
+									if (dropDown === 'openTwo') return false;
+									else return 'openTwo';
+								})
+							}
 						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-							/>
-						</svg>
+							<svg
+								fill="none"
+								viewBox="0 0 24 24"
+								strokeWidth={1.5}
+								stroke="currentColor"
+								className={`${
+									dropDown === 'openTwo' ? 'scale-105 text-sky-700' : ''
+								} h-6 w-6 transition-all`}
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
+								/>
+							</svg>
+						</button>
+
 						<p className="hidden sm:block">Contato</p>
-						<div className="absolute top-6 -right-[72px] h-[0px] w-[250px] overflow-hidden shadow-xl transition-all duration-300 group-hover:h-[344px] sm:-right-4">
+						<div
+							className={`${
+								dropDown === 'openTwo' && 'max-sm:h-[344px]'
+							} absolute top-6 -right-[72px] h-0 w-[250px] overflow-hidden shadow-xl transition-all duration-300 sm:-right-4 sm:group-hover:h-[344px]`}
+						>
 							<p className="mt-2 cursor-default bg-[#25d366] px-6 py-4 text-sm text-white">
 								Clique no botão abaixo e fale com nossos vendedores!
 							</p>
@@ -143,15 +170,23 @@ export default function Header() {
 						</div>
 					</div>
 					<div className="group relative flex cursor-pointer items-center gap-2">
-						<div>
+						<button
+							onClick={() =>
+								setDropDown(() => {
+									if (dropDown === 'openThree') return false;
+									else return 'openThree';
+								})
+							}
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								height={24}
-								width={24}
+								fill="none"
+								className={`${
+									dropDown === 'openThree' ? 'scale-105 text-sky-700' : ''
+								} h-6 w-6 transition-all`}
 							>
 								<path
 									strokeLinecap="round"
@@ -164,10 +199,14 @@ export default function Header() {
 									d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
 								/>
 							</svg>
-						</div>
+						</button>
 
 						<p className="hidden sm:block">Localização</p>
-						<div className="absolute top-6 -right-4 h-[0px] w-min overflow-hidden bg-slate-50 shadow-xl transition-all duration-300 group-hover:h-[328px] sm:w-[350px]">
+						<div
+							className={`${
+								dropDown === 'openThree' && 'max-sm:h-[328px]'
+							} absolute top-6 -right-4 h-[0px] w-min overflow-hidden bg-slate-50 shadow-xl transition-all duration-300 sm:w-[350px] sm:group-hover:h-[328px]`}
+						>
 							{/* <p className="mt-2 cursor-default bg-[#25d366] px-6 py-4 text-sm text-white">
 							Clique no botão abaixo e fale com nossos vendedores!
 						</p> */}
