@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function WhatsAppButton() {
 	const wrapperRef = React.useRef(null);
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = React.useState<boolean | string>(false);
 
 	useDetectClickOutside(wrapperRef, setOpen);
 
