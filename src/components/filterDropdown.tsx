@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function FilterDropDown() {
 	const wrapperRef = React.useRef(null);
-	const [open, setOpen] = React.useState(false);
+	const [open, setOpen] = React.useState<string | boolean>(false);
 
 	useDetectClickOutside(wrapperRef, setOpen);
 
